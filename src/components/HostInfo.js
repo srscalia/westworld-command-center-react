@@ -5,17 +5,17 @@ import { Radio, Icon, Card, Grid, Image, Dropdown, Divider } from 'semantic-ui-r
 
 class HostInfo extends Component {
   areaListFormatted = this.props.allAreas.map((areaObj)=>{
-    return {key: areaObj.name, text: areaObj.name.split('_').join(' ').toUpperCase(), value: areaObj.name}
+    const formattedName = areaObj.name.split('_').join(' ').toUpperCase()
+    return {key: areaObj.name, text: formattedName, value: areaObj.name}
   })
 
   state = {
-    options: this.areaListFormatted
+    options: this.areaListFormatted,
+    dropdownValue: this.props.authorizedHost.area
   }
-  handleChange = (e, {value}) => {
-    // the 'value' attribute is given via Semantic's Dropdown component.
-    // Put a debugger in here and see what the "value" variable is when you pass in different options.
-    // See the Semantic docs for more info: https://react.semantic-ui.com/modules/dropdown/#usage-controlled
 
+  handleChange = (e, {value}) => {
+    this.props.handleAreaChange(value)
   }
 
   toggle = (event) => {
@@ -54,7 +54,7 @@ class HostInfo extends Component {
               Current Area:
               <Dropdown
                 onChange={this.handleChange}
-                value={this.state.value}
+                value={this.props.authorizedHost.area}
                 options={this.state.options}
                 selection
               />

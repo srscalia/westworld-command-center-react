@@ -67,13 +67,55 @@ class App extends Component {
     })
   }
 
+  changeHostArea = (value) => {
+    console.log('changing host area');
+    const copyHosts = this.state.allHosts.map(hostObj => {
+      if (hostObj.authorized === true) {
+        return {...hostObj, area: value}
+      } else {
+        return {...hostObj}
+      }
+    })
+
+    this.setState({
+      allHosts: copyHosts
+    })
+  }
+
+  changeActiveAllHosts = (event) => {
+    const checkActiveHosts = this.state.allHosts.filter(host=>host.active === true).length
+    let copyHosts
+    if (checkActiveHosts === this.state.allHosts.length) {
+      // deactivate all
+      copyHosts = this.state.allHosts.map(hostObj => {
+          return {...hostObj, active: false}
+      })
+    } else {
+      copyHosts = this.state.allHosts.map(hostObj => {
+          return {...hostObj, active: true}
+      })
+    }
+    this.setState({
+      allHosts: copyHosts
+    })
+
+  }
+
   render(){
     return (
       <Segment id='app'>
-        <WestworldMap allHosts={this.state.allHosts} allAreas={this.state.allAreas} changeAuthorized={this.changeAuthorized} />
+        <WestworldMap
+        allHosts={this.state.allHosts}
+        allAreas={this.state.allAreas}
+        changeAuthorized={this.changeAuthorized} />
 
-        <Headquarters allHosts={this.state.allHosts} allAreas={this.state.allAreas} changeAuthorized={this.changeAuthorized}
-        changeActive={this.changeActive}/>
+        <Headquarters
+        allHosts={this.state.allHosts}
+        allAreas={this.state.allAreas}
+        changeAuthorized={this.changeAuthorized}
+        changeActive={this.changeActive}
+        changeActiveAllHosts={this.changeActiveAllHosts}
+        changeHostArea={this.changeHostArea}/>
       </Segment>
     )
   }
