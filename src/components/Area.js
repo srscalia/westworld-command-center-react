@@ -2,7 +2,8 @@ import React from 'react';
 import '../stylesheets/Area.css'
 import HostList from './HostList'
 
-const Area = (props) => (
+const Area = (props) => {
+  return (
 
   <div className='area' id={props.name}>
     <h3 className='labels'>{props.name.split('_').join(' ').toUpperCase()}</h3>
@@ -11,7 +12,7 @@ const Area = (props) => (
 
   </div>
 
-)
+)}
 
 Area.propTypes = {
   hosts: function(props, propName, componentName){

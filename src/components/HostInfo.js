@@ -4,18 +4,23 @@ import { Radio, Icon, Card, Grid, Image, Dropdown, Divider } from 'semantic-ui-r
 
 
 class HostInfo extends Component {
+  areaListFormatted = this.props.allAreas.map((areaObj)=>{
+    return {key: areaObj.name, text: areaObj.name.split('_').join(' ').toUpperCase(), value: areaObj.name}
+  })
+
   state = {
-
+    options: this.areaListFormatted
   }
-
   handleChange = (e, {value}) => {
     // the 'value' attribute is given via Semantic's Dropdown component.
     // Put a debugger in here and see what the "value" variable is when you pass in different options.
     // See the Semantic docs for more info: https://react.semantic-ui.com/modules/dropdown/#usage-controlled
+
   }
 
-  toggle = () => {
-    console.log("The radio button fired");
+  toggle = (event) => {
+    // console.log(this)
+    this.props.changeActive(this.props)
   }
 
   render(){
@@ -40,7 +45,6 @@ class HostInfo extends Component {
                   onChange={this.toggle}
                   label={this.props.authorizedHost.active ? "Active": "Decommissioned"}
                   checked="checked"
-                  className="radio"
                   slider
 
                 />

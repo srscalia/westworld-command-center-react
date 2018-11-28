@@ -42,10 +42,6 @@ class App extends Component {
   }
 
   changeAuthorized = (props) => {
-    console.log('got back to app for authorized');
-    console.log(props);
-    console.log(this.state)
-
     const copyHosts = this.state.allHosts.map(hostObj => {
       if (hostObj.id === props.id) {
         return {...hostObj, authorized: true}
@@ -56,8 +52,19 @@ class App extends Component {
     this.setState({
       allHosts: copyHosts
     })
+  }
 
-
+  changeActive = (props)=>{
+    const copyHosts = this.state.allHosts.map(hostObj => {
+      if (hostObj.id === props.authorizedHost.id) {
+        return {...hostObj, active: !props.authorizedHost.active}
+      } else {
+        return hostObj
+      }
+    })
+    this.setState({
+      allHosts: copyHosts
+    })
   }
 
   render(){
@@ -65,7 +72,8 @@ class App extends Component {
       <Segment id='app'>
         <WestworldMap allHosts={this.state.allHosts} allAreas={this.state.allAreas} changeAuthorized={this.changeAuthorized} />
 
-        <Headquarters allHosts={this.state.allHosts} allAreas={this.state.allAreas} changeAuthorized={this.changeAuthorized}/>
+        <Headquarters allHosts={this.state.allHosts} allAreas={this.state.allAreas} changeAuthorized={this.changeAuthorized}
+        changeActive={this.changeActive}/>
       </Segment>
     )
   }

@@ -8,6 +8,9 @@ import LogPanel from './LogPanel'
 
 class Headquarters extends Component {
   // Remember, there's many ways to do this. This doesn't have to be a class component. It's up to you.
+  state = {
+    
+  }
 
   render(){
     return(
@@ -18,7 +21,7 @@ class Headquarters extends Component {
 
         </Grid.Column>
         <Grid.Column width={5}>
-          <Details authorizedHost={this.props.allHosts.find((host)=> host.authorized === true)} allHosts={this.props.allHosts} allAreas={this.props.allAreas}/>
+          <Details authorizedHost={this.props.allHosts.find((host)=> host.authorized === true)} allHosts={this.props.allHosts} allAreas={this.props.allAreas} changeActive={this.props.changeActive}/>
         </Grid.Column>
         <Grid.Column width={3}>
 
